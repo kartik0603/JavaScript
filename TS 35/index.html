@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <input id="min" placeholder=" Enter Min Number  " type="number">
+    <input id="max" placeholder=" Enter Max Number  " type="number">
+
+    <button onclick="GetValue()">Click</button>
+    <h1 id="result"></h1>
+    
+    <script>
+        const GetValue = () => {
+            let min = parseInt(document.getElementById("min").value);
+            let max = parseInt(document.getElementById("max").value);
+            let result = "";
+
+            for (let i = min; i < max; i++) {
+                result += i + "<br>";
+            }
+
+            document.getElementById("result").innerHTML = result;
+        };
+    </script>
+</body>
+</html>
