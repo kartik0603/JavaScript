@@ -1,12 +1,108 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
+
 <body>
-    
+    <form id="studentData">
+
+        <input type="text" placeholder="Enter Your Name" id="name">
+        <input type="text" placeholder="Enter Your Surname" id="surname">
+        <input type="number" placeholder="Enter Your Roll Number" id="rollnumber">
+        <input type="email" placeholder="Enter Your Email Eddress" id="emaladdress">
+        <input type="number" placeholder="Enter Your Mobie Number" id="mobilenumber">
+        <input type="submit">
+
+
+    </form >
+
+    <div id="studentList"></div>
 </body>
 <script src="index.js"></script>
+
+
+<script>
+
+    let students = [];
+
+
+    const handleData = (e) => {
+        e.preventDefault();
+
+
+
+        let name = document.getElementById("name").value;
+        let surname = document.getElementById("surname").value;
+        let rollnumber = document.getElementById("rollnumber").value;
+        let emaladdress = document.getElementById("emaladdress").value;
+        let mobilenumber = document.getElementById("mobilenumber").value;
+
+
+
+
+        let student = {
+            name: name,
+            surname: surname,
+            rollnumber: rollnumber,
+            emaladdress: emaladdress,
+            mobilenumber: mobilenumber
+        };
+
+        students.push(student);
+        uiMaker();
+
+    }
+
+    document.getElementById("studentData").addEventListener("submit", handleData);
+
+
+
+
+    const uiMaker = () => {
+        document.getElementById("studentList").innerHTML = " ";
+
+        for (i = 0; i < students.length; i++) {
+
+
+            let name = document.createElement("p");
+            name.innerHTML = students[i].name;
+            document.getElementById("studentList").append(name);
+
+
+            let surname = document.createElement("p");
+            surname.innerHTML = students[i].surname;
+            document.getElementById("studentList").append(surname);
+
+
+
+            let rollnumber = document.createElement("p");
+            rollnumber.innerHTML = students[i].rollnumber;
+            document.getElementById("studentList").append(rollnumber);
+
+
+
+            let emaladdress = document.createElement("p");
+            emaladdress.innerHTML = students[i].emaladdress;
+            document.getElementById("studentList").append(emaladdress);
+
+
+            let mobilenumber = document.createElement("p");
+            mobilenumber.innerHTML = students[i].mobilenumber;
+            document.getElementById("studentList").append(mobilenumber);
+
+
+
+
+
+
+
+
+        }
+    }
+</script>
+
 </html>
