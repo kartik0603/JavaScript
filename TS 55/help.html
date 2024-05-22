@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Countdown Timer</title>
+</head>
+<body>
+  <form id="enterTime">
+    <input type="number" min="0" placeholder="Enter Time (Minutes or Hours)">
+    <button type="button" onclick="startCountdown()">Start Countdown</button>
+  </form>
+  <p id="clock"></p>
+
+  <script>
+    let countdownTime = 0;
+
+    const startCountdown = () => {
+      // Get user input and determine if it's in minutes or hours
+      const userInput = parseInt(document.getElementById("enterTime").elements[0].value);
+      countdownTime = userInput * 60; // Convert hours to minutes
+
+      const updateClock = () => {
+        let minutes = Math.floor(countdownTime / 60);
+        let seconds = countdownTime % 60;
+
+        minutes = minutes < 10 ? "0" + minutes : minutes;
+        seconds = seconds < 10 ? "0" + seconds : seconds;
+
+        document.getElementById("clock").innerHTML = `${minutes}:${seconds}`;
+
+        if (countdownTime > 0) {
+          countdownTime--;
+        } else {
+          clearInterval(intervalId);  // Stop the timer when countdown reaches 0
+          document.getElementById("clock").innerHTML = "Countdown Finished!";
+        }
+      };
+
+      const intervalId = setInterval(updateClock, 1000);
+    };
+  </script>
+</body>
+</html>
