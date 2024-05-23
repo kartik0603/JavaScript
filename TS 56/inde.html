@@ -3,10 +3,103 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Countdown Timer</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background: linear-gradient(135deg, #f8ffae, #43c6ac);
+            font-family: 'Arial', sans-serif;
+        }
+        form {
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        input[type="number"] {
+            width: 100px;
+            padding: 10px;
+            margin: 10px 0;
+            border: 2px solid #43c6ac;
+            border-radius: 5px;
+            font-size: 1em;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+        input[type="number"]:focus {
+            border-color: #f8ffae;
+        }
+        input[type="submit"] {
+            background: #43c6ac;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            font-size: 1em;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        input[type="submit"]:hover {
+            background: #f8ffae;
+            color: #43c6ac;
+        }
+        #showTime {
+            margin-top: 20px;
+            font-size: 2em;
+            color: #fff;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+    </style>
 </head>
 <body>
-    
+
+    <form id="data">
+        <input type="number" id="min" placeholder="Enter Minute" min="0">
+        <input type="number" id="sec" placeholder="Enter Second" min="0" max="59">
+        <input type="submit" value="Start Timer">
+    </form>
+
+    <p id="showTime"></p>
+
+    <script>
+        document.getElementById('data').addEventListener('submit', function(event) {
+            event.preventDefault();
+            let min = parseInt(document.getElementById('min').value) || 0;
+            let sec = parseInt(document.getElementById('sec').value) || 0;
+
+            if (sec > 59) {
+                sec = 59;
+            }
+
+            const displayTime = () => {
+                document.getElementById('showTime').textContent = `${min} : ${sec < 10 ? '0' : ''}${sec}`;
+            };
+
+            displayTime();
+
+            const timerId = setInterval(() => {
+                if (sec === 0) {
+                    if (min === 0) {
+                        clearInterval(timerId);
+                        document.getElementById('showTime').textContent = "Time's up!";
+                        return;
+                    }
+                    min -= 1;
+                    sec = 59;
+                } else {
+                    sec -= 1;
+                }
+                displayTime();
+            }, 1000);
+        });
+    </script>
+
 </body>
-<script src="index.js"></script>
 </html>
