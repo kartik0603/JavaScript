@@ -61,6 +61,7 @@
 <body>
 
     <form id="data">
+        <input type="number" id="hrs" placeholder="Enter Hour" min="0">
         <input type="number" id="min" placeholder="Enter Minute" min="0">
         <input type="number" id="sec" placeholder="Enter Second" min="0" max="59">
         <input type="submit" value="Start Timer">
@@ -71,6 +72,7 @@
     <script>
         document.getElementById('data').addEventListener('submit', function(event) {
             event.preventDefault();
+            let hrs = parseInt(document.getElementById('hrs').value) || 0;
             let min = parseInt(document.getElementById('min').value) || 0;
             let sec = parseInt(document.getElementById('sec').value) || 0;
 
@@ -79,7 +81,7 @@
             }
 
             const displayTime = () => {
-                document.getElementById('showTime').textContent = `${min} : ${sec < 10 ? '0' : ''}${sec}`;
+                document.getElementById('showTime').textContent = `${hrs} : ${min < 10 ? '0' : ''}${min} : ${sec < 10 ? '0' : ''}${sec}`;
             };
 
             displayTime();
@@ -87,12 +89,18 @@
             const timerId = setInterval(() => {
                 if (sec === 0) {
                     if (min === 0) {
-                        clearInterval(timerId);
-                        document.getElementById('showTime').textContent = "Time's up!";
-                        return;
+                        if (hrs === 0) {
+                            clearInterval(timerId);
+                            document.getElementById('showTime').textContent = "Time's up!";
+                            return;
+                        }
+                        hrs -= 1;
+                        min = 59;
+                        sec = 59;
+                    } else {
+                        min -= 1;
+                        sec = 59;
                     }
-                    min -= 1;
-                    sec = 59;
                 } else {
                     sec -= 1;
                 }
